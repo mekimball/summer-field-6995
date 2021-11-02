@@ -17,6 +17,12 @@ RSpec.describe 'Movie Show', type: :feature do
       expect(page).to have_content(@actor1.name)
       expect(page).to have_content(@actor2.name)
     end
+
+    it 'lists actors by order of age' do
+      visit "movies/#{@movie1.id}"
+
+      expect(@actor1.name).to appear_before(@actor2.name)
+    end
   end
 end
 

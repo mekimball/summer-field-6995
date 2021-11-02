@@ -3,4 +3,8 @@ class Movie < ApplicationRecord
 
   has_many :movie_actors
   has_many :actors, through: :movie_actors
+
+  def actor_sort
+    actors.order(:age)
+  end
 end
