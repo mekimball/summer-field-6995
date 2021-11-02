@@ -7,6 +7,7 @@ RSpec.describe 'Movie Show', type: :feature do
     @actor2 = @movie1.actors.create!(name: 'Tim', age: 30)
     @actor1 = @movie1.actors.create!(name: 'Jim', age: 25)
   end
+
   describe 'show page' do
     it 'shows movies information' do
       visit "movies/#{@movie1.id}"
@@ -29,11 +30,26 @@ RSpec.describe 'Movie Show', type: :feature do
 
       expect(page).to have_content("Actor Average Age: #{@movie1.average_age}")
     end
+
+    it 'can add an actor to a movie' do
+      actor3 = Actor.create!(name: 'Kim', age: 76)
+      visit "movies/#{@movie1.id}"
+        
+      expect(page).to_not have_content(actor3.name)
+
+      fill_in :add_actor, with: 'Kim'
+      click_button 'Submit'
+      expect(page).to have_content(actor3.name)
+    end
   end
 end
 
 # As a user,
-# When I visit a movie's show page.
-# I see the movie's title, creation year, and genre,
-# and a list of all its actors from youngest to oldest.
-# And I see the average age of all of the movie's actors
+# When I visit a movie show page,
+# I do not see any actors listed that are not part of the movie
+# And I see a form to add an actor to this movie
+# When I fill in the form with the name of an actor that exists in the database
+# And I click submit
+# Then I am redirected back to that movie's show page
+# And I see the actor's name is now listed
+# (You do not have to test for a sad path, for example if the name submitted is not an existing actor)
