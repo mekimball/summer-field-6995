@@ -6,11 +6,11 @@ RSpec.describe 'Movie Show', type: :feature do
     @movie1 = @studio1.movies.create!(title: 'Raiders of the Lost Ark', creation_year: 1981, genre: 'Action/Adventure')
     @actor2 = @movie1.actors.create!(name: 'Tim', age: 30)
     @actor1 = @movie1.actors.create!(name: 'Jim', age: 25)
+    visit movie_path(@movie1.id)
   end
 
   describe 'show page' do
     it 'shows movies information' do
-      visit "movies/#{@movie1.id}"
 
       expect(page).to have_content(@movie1.title)
       expect(page).to have_content(@movie1.creation_year)
@@ -20,20 +20,17 @@ RSpec.describe 'Movie Show', type: :feature do
     end
 
     it 'lists actors by order of age' do
-      visit "movies/#{@movie1.id}"
 
       expect(@actor1.name).to appear_before(@actor2.name)
     end
 
     it 'shows average actors age for movie' do
-      visit "movies/#{@movie1.id}"
 
       expect(page).to have_content("Actor Average Age: #{@movie1.average_age}")
     end
 
     it 'can add an actor to a movie' do
       actor3 = Actor.create!(name: 'Kim', age: 76)
-      visit "movies/#{@movie1.id}"
         
       expect(page).to_not have_content(actor3.name)
 

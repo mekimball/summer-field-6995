@@ -10,7 +10,7 @@ RSpec.describe 'index page', type: :feature do
   end
   describe 'Studio Index' do
     it 'shows studios and movies' do
-      visit '/studios'
+      visit studios_path
 
       expect(page).to have_content(@studio1.name)
       expect(page).to have_content(@studio1.location)
