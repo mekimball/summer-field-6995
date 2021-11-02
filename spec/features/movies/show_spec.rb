@@ -11,11 +11,11 @@ RSpec.describe 'Movie Show', type: :feature do
     it 'shows movies information' do
       visit "movies/#{@movie1.id}"
 
-      expect(page).to have_content(@movie.name)
-      expect(page).to have_content(@movie.creation_year)
-      expect(page).to have_content(@movie.genre)
-      expect(page).to have_content(@actor1.age)
-      expect(page).to have_content(@actor2.age)
+      expect(page).to have_content(@movie1.title)
+      expect(page).to have_content(@movie1.creation_year)
+      expect(page).to have_content(@movie1.genre)
+      expect(page).to have_content(@actor1.name)
+      expect(page).to have_content(@actor2.name)
     end
   end
 end
