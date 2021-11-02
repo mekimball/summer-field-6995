@@ -23,6 +23,12 @@ RSpec.describe 'Movie Show', type: :feature do
 
       expect(@actor1.name).to appear_before(@actor2.name)
     end
+
+    it 'shows average actors age for movie' do
+      visit "movies/#{@movie1.id}"
+
+      expect(page).to have_content("Actor Average Age: #{@movie1.average_age}")
+    end
   end
 end
 
